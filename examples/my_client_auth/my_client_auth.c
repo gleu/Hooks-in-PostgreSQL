@@ -20,7 +20,7 @@
 
 PG_MODULE_MAGIC;
 
-static ClientAuthentication_hook_type next_client_auth_hook = NULL;
+static ClientAuthentication_hook_type prev_client_auth_hook = NULL;
 
 /*
  * my_client_auth
@@ -31,8 +31,8 @@ my_client_auth(Port *port, int status)
 {
     struct stat buf;
 
-    if (next_client_auth_hook)
-        (*next_client_auth_hook) (port, status);
+    if (prev_client_auth_hook)
+        (*prev_client_auth_hook) (port, status);
 
     /*
      * If the authentication fails, no need to go further
@@ -51,6 +51,6 @@ my_client_auth(Port *port, int status)
 void
 _PG_init(void)
 {
-    next_client_auth_hook = ClientAuthentication_hook;
+    prev_client_auth_hook = ClientAuthentication_hook;
     ClientAuthentication_hook = my_client_auth;
 }

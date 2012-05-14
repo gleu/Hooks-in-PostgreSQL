@@ -30,8 +30,8 @@ static ExecutorEnd_hook_type prev_ExecutorEnd = NULL;
 void		_PG_init(void);
 void		_PG_fini(void);
 
-static void pgls_ExecutorEnd(QueryDesc *queryDesc);
-static void pgls_log(const char *query);
+static void my_ExecutorEnd(QueryDesc *queryDesc);
+static void my_log(const char *query);
 
 
 /*
@@ -44,7 +44,7 @@ _PG_init(void)
 	 * Install hooks.
 	 */
 	prev_ExecutorEnd = ExecutorEnd_hook;
-	ExecutorEnd_hook = pgls_ExecutorEnd;
+	ExecutorEnd_hook = my_ExecutorEnd;
 }
 
 /*
@@ -61,9 +61,9 @@ _PG_fini(void)
  * ExecutorEnd hook: log if needed
  */
 static void
-pgls_ExecutorEnd(QueryDesc *queryDesc)
+my_ExecutorEnd(QueryDesc *queryDesc)
 {
-    pgls_log(queryDesc->sourceText);
+    my_log(queryDesc->sourceText);
 
 	if (prev_ExecutorEnd)
 		prev_ExecutorEnd(queryDesc);
@@ -75,7 +75,7 @@ pgls_ExecutorEnd(QueryDesc *queryDesc)
  * Log statement according to the user that launched the statement.
  */
 static void
-pgls_log(const char *query)
+my_log(const char *query)
 {
 	Assert(query != NULL);
 

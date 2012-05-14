@@ -29,7 +29,7 @@ extern void _PG_init(void);
  *
  */
 static void
-check_password(const char *username,
+my_check_password(const char *username,
 			   const char *password,
 			   int password_type,
 			   Datum validuntil_time,
@@ -49,5 +49,5 @@ check_password(const char *username,
 void
 _PG_init(void)
 {
-	check_password_hook = check_password;
+	check_password_hook = my_check_password;
 }
