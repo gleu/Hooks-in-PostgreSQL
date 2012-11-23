@@ -53,7 +53,7 @@ deny_drop(ObjectAccessType access,
 	{
         if (classId == DatabaseRelationId)
 		    ereport(ERROR,
-		    	(errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+		    	(errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
 		    	 errmsg("cannot drop a database!")));
 	}
 }
