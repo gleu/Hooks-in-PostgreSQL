@@ -48,7 +48,7 @@ deny_drop(ObjectAccessType access,
                        int subId,
                        void *arg)
 {
-	if (access = OAT_DROP)
+	if (access == OAT_DROP)
 	{
         if (classId == DatabaseRelationId)
 		    ereport(ERROR,
