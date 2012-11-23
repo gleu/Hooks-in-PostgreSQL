@@ -29,6 +29,8 @@
 #include "fmgr.h"
 #include "libpq/md5.h"
 
+static bool    iknowwhatiamdoing = false;
+
 
 PG_MODULE_MAGIC;
 
@@ -37,8 +39,7 @@ extern void _PG_init(void);
 /*
  * deny_drop
  *
- * performs one check: is it an encrypted password or not?
- * ereport's if not acceptable
+ * deny dropping a database
  *
  */
 static void
@@ -48,7 +49,7 @@ deny_drop(ObjectAccessType access,
                        int subId,
                        void *arg)
 {
-	if (access == OAT_DROP)
+	if (access == OAT_DROP && !iknowwhatiamdoing)
 	{
         if (classId == DatabaseRelationId)
 		    ereport(ERROR,
@@ -63,5 +64,20 @@ deny_drop(ObjectAccessType access,
 void
 _PG_init(void)
 {
+    // add the hook function
 	object_access_hook = deny_drop;
+
+    // define the custom parameter
+    DefineCustomBoolVariable("deny_drop.iknowwhatiamdoing",
+                             gettext_noop("If true, allow drop database."),
+                             NULL,
+                             &iknowwhatiamdoing,
+                             false,
+                             PGC_USERSET,
+                             0,
+#if PG_VERSION_NUM >= 90100
+                             NULL,
+#endif
+                             NULL,
+                             NULL);
 }
