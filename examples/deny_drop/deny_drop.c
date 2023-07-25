@@ -4,33 +4,18 @@
  *      Deny dropping a database
  *
  *
- * Copyright (c) 2012, Guillaume Lelarge (Dalibo),
+ * Copyright (c) 2012-2023, Guillaume Lelarge (Dalibo),
  * guillaume.lelarge@dalibo.com
  *
  *-------------------------------------------------------------------------*/
+
 #include "postgres.h"
-
-#include <ctype.h>
-
-#include "catalog/dependency.h"
-#include "catalog/objectaccess.h"
-#include "catalog/pg_class.h"
-#include "catalog/pg_database.h"
-#include "catalog/pg_namespace.h"
-#include "catalog/pg_proc.h"
-#include "commands/seclabel.h"
-#include "executor/executor.h"
 #include "fmgr.h"
-#include "miscadmin.h"
-#include "tcop/utility.h"
 #include "utils/guc.h"
-
-#include "commands/user.h"
-#include "fmgr.h"
-#include "libpq/md5.h"
+#include "catalog/objectaccess.h"
+#include "catalog/pg_database.h"
 
 static bool    iknowwhatiamdoing = false;
-
 
 PG_MODULE_MAGIC;
 
@@ -65,7 +50,7 @@ void
 _PG_init(void)
 {
     // add the hook function
-	object_access_hook = deny_drop;
+    object_access_hook = deny_drop;
 
     // define the custom parameter
     DefineCustomBoolVariable("deny_drop.iknowwhatiamdoing",
