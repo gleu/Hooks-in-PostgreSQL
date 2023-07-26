@@ -1,3 +1,14 @@
+/*-------------------------------------------------------------------------
+ *
+ * loggingperdbname.c
+ *		TESTS
+ *
+ *
+ * Copyright (c) 2023, Guillaume Lelarge (Dalibo),
+ * guillaume.lelarge@dalibo.com
+ *
+ *-------------------------------------------------------------------------*/
+
 #include "postgres.h"
 #include "fmgr.h"
 #include "miscadmin.h"
