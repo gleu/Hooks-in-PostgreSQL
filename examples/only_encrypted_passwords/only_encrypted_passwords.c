@@ -14,7 +14,6 @@
 
 #include "commands/user.h"
 #include "fmgr.h"
-#include "libpq/md5.h"
 
 
 PG_MODULE_MAGIC;
@@ -31,7 +30,7 @@ extern void _PG_init(void);
 static void
 my_check_password(const char *username,
 			   const char *password,
-			   int password_type,
+			   PasswordType password_type,
 			   Datum validuntil_time,
 			   bool validuntil_null)
 {

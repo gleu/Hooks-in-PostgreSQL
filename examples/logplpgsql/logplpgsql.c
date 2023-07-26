@@ -23,5 +23,5 @@ void load_plugin( PLpgSQL_plugin * hooks )
 
 static void my_func_beg( PLpgSQL_execstate * estate, PLpgSQL_function * func )
 {
-	elog(LOG, "Execute function %s", func->fn_name);
+	elog(LOG, "Execute function %s", func->fn_signature);
 }

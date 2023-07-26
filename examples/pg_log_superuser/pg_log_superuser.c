@@ -9,6 +9,7 @@
  *
  *-------------------------------------------------------------------------*/
 #include "postgres.h"
+#include "fmgr.h"
 
 #include <unistd.h>
 
@@ -79,7 +80,7 @@ my_log(const char *query)
 {
 	Assert(query != NULL);
 
-    if (superuser())
-        elog(LOG, "**SUPERUSER QUERY** %s: %s", GetUserNameFromId(GetUserId()), query);
+  if (superuser())
+    elog(LOG, "**SUPERUSER QUERY** %s: %s", "", query);
 }
 

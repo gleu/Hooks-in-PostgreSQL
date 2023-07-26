@@ -9,6 +9,7 @@
  *
  *-------------------------------------------------------------------------*/
 #include "postgres.h"
+#include "fmgr.h"
 
 #include "commands/seclabel.h"
 #include "libpq/auth.h"
@@ -21,6 +22,9 @@
 PG_MODULE_MAGIC;
 
 static ClientAuthentication_hook_type prev_client_auth_hook = NULL;
+
+void _PG_init(void);
+static void my_client_auth(Port *port, int status);
 
 /*
  * my_client_auth
