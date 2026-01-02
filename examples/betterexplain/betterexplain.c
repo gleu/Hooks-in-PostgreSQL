@@ -4,7 +4,7 @@
  *      Change explain options on the fly
  *
  *
- * Copyright (c) 2025, Guillaume Lelarge (Dalibo),
+ * Copyright (c) 2025-2026, Guillaume Lelarge (Dalibo),
  * guillaume.lelarge@dalibo.com
  *
  *-------------------------------------------------------------------------*/
